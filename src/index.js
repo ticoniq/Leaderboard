@@ -20,40 +20,53 @@ let gameId = '';
 const createGame = async () => {
   const game = 'Fifa-2023';
 
-  const response = await fetch('https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({ name: game }),
-  });
+  try {
+    const response = await fetch('https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ name: game }),
+    });
 
-  const data = await response.json();
-  // eslint-disable-next-line prefer-destructuring
-  gameId = data.result.split(' ')[3];
+    const data = await response.json();
+    // eslint-disable-next-line prefer-destructuring
+    gameId = data.result.split(' ')[3];
+  } catch (error) {
+    errorMsg('An error occurred', 'red');
+  }
 };
 
 const addUser = async (e) => {
   const name = document.querySelector('.name').value;
   const score = document.querySelector('.score').value;
 
+  const button = document.querySelector('.add-user');
+  button.disabled = true;
+
   if (name === '' && score === '') {
-    errorMsg('All field are required', 'red');
+    errorMsg('All fields are required', 'red');
   } else {
-    const response = await fetch(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameId}/scores/`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({ user: name, score }),
-    });
+    try {
+      const response = await fetch(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameId}/scores/`, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ user: name, score }),
+      });
 
-    document.querySelector('.name').value = '';
-    document.querySelector('.score').value = '';
+      document.querySelector('.name').value = '';
+      document.querySelector('.score').value = '';
 
-    const data = await response.json();
-    errorMsg(data.result, 'green');
+      const data = await response.json();
+      errorMsg(data.result, 'green');
+    } catch (error) {
+      errorMsg('An error occurred', 'red');
+    }
   }
+
+  button.disabled = false;
   e.preventDefault();
 };
 
@@ -64,33 +77,37 @@ const getUsers = async () => {
   loader.src = Spinner;
   loadImg.appendChild(loader);
 
-  setTimeout(async () => {
-    const response = await fetch(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameId}/scores`);
-    const data = await response.json();
-    const users = data.result;
+  try {
+    setTimeout(async () => {
+      const response = await fetch(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameId}/scores`);
+      const data = await response.json();
+      const users = data.result;
 
-    ul.innerHTML = '';
+      ul.innerHTML = '';
 
-    if (users.length === 0) {
-      const list = document.createElement('li');
-      const p = document.createElement('p');
-      p.className = 'error';
-      p.textContent = 'No user available';
-      list.appendChild(p);
-      ul.appendChild(list);
-    } else {
-      users.forEach((user, index) => {
+      if (users.length === 0) {
         const list = document.createElement('li');
-        list.innerHTML = `
-          <span class="index">${index += 1}</span>
-          <p>${user.user}</p>
-          <span class="scores">${user.score}</span>
-        `;
+        const p = document.createElement('p');
+        p.className = 'error';
+        p.textContent = 'No user available';
+        list.appendChild(p);
         ul.appendChild(list);
-      });
-    }
-    loader.style.display = 'none';
-  }, 2000);
+      } else {
+        users.forEach((user, index) => {
+          const list = document.createElement('li');
+          list.innerHTML = `
+            <span class="index">${index += 1}</span>
+            <p>${user.user}</p>
+            <span class="scores">${user.score}</span>
+          `;
+          ul.appendChild(list);
+        });
+      }
+      loader.style.display = 'none';
+    }, 2000);
+  } catch (error) {
+    errorMsg('An error occurred', 'red');
+  }
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
