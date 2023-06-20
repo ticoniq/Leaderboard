@@ -56,6 +56,31 @@ button:active {
   overflow: hidden;
 }
 
+.msg {
+  display: none;
+  position: absolute;
+  right: 0;
+  margin: auto;
+  margin-top: 20px;
+  width: 200px;
+  padding: 10px 10px;
+  border-radius: 15px;
+  text-align: center;
+  color: #fff;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  width: 100%;
+  margin: 85px 0;
+}
+
+.spinner {
+  width: 15px;
+  text-align: center;
+}
+
 .card {
   background: #fff;
   color: #000;
@@ -77,11 +102,18 @@ button:active {
 }
 
 .ul li {
-  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #272626;
+  color: #fff;
   font-weight: 600;
-  border-radius: 30px;
   margin: 5px 0;
-  padding: 5px;
+  padding: 10px;
+}
+
+ul li:nth-child(odd) {
+  background: #3c3b3b;
 }
 
 .new-score {
