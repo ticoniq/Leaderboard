@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+</head>
+
+<body>
+  <main>
+    <p class="msg"></p>
+    <section class="container">
+      <h1>Leader Board</h1>
+      <div class="flex">
+        <div class="card item">
+          <div class="card-header">
+            <h3>Recent scores</h3>
+            <button class="refresh">Refresh
+              <span class="load"></span>
+            </button>
+          </div>
+          <ul class="ul">
+            <li>Name: 100</li>
+            <li>Name: 100</li>
+            <li>Name: 100</li>
+            <li>Name: 100</li>
+            <li>Name: 100</li>
+            <li>Name: 100</li>
+            <li>Name: 100</li>
+          </ul>
+        </div>
+        <div class="new-score item">
+          <h3>Add your score</h3>
+          <div class="form">
+            <input type="text" placeholder="Your name" class="name">
+            <input type="number" max="100" placeholder="Your score" class="score">
+            <button type="submit" class="add-user">Submit</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>
