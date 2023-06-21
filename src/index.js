@@ -16,6 +16,15 @@ const errorMsg = (message, color) => {
   }, 3000);
 };
 
+const saveGameId = (gameId) => {
+  localStorage.setItem('gameId', gameId);
+};
+
+const getGameId = () => {
+  const currentGame = localStorage.getItem('gameId');
+  return currentGame;
+};
+
 let gameId = '';
 const createGame = async () => {
   const game = 'Fifa-2023';
@@ -32,6 +41,7 @@ const createGame = async () => {
     const data = await response.json();
     // eslint-disable-next-line prefer-destructuring
     gameId = data.result.split(' ')[3];
+    saveGameId(gameId);
   } catch (error) {
     errorMsg('An error occurred', 'red');
   }
@@ -48,7 +58,7 @@ const addUser = async (e) => {
     errorMsg('All fields are required', 'red');
   } else {
     try {
-      const response = await fetch(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameId}/scores/`, {
+      const response = await fetch(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${getGameId()}/scores/`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -79,7 +89,7 @@ const getUsers = async () => {
 
   try {
     setTimeout(async () => {
-      const response = await fetch(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameId}/scores`);
+      const response = await fetch(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${getGameId()}/scores`);
       const data = await response.json();
       const users = data.result;
 
@@ -111,7 +121,10 @@ const getUsers = async () => {
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await createGame();
+  gameId = getGameId();
+  if (!gameId) {
+    await createGame();
+  }
   getUsers();
 });
 addUserBtn.addEventListener('click', addUser);

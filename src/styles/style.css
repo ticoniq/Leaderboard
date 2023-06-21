@@ -6,7 +6,11 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #fff;
+  background: #3266cc;
+}
+
+h3 {
+  margin-bottom: 10px;
 }
 
 h1 {
@@ -17,17 +21,18 @@ h1 {
 button {
   display: inline-block;
   cursor: pointer;
-  background: #fff;
+  background: #3266cc;
   padding: 10px 20px;
-  color: #000;
+  border: none;
+  color: #fff;
   font-weight: 600;
-  box-shadow: 3px 3px #000;
-  border: 2px solid #000;
+  border-radius: 30px;
+  box-shadow: 3px 3px #fff;
 }
 
 button:hover {
   transition: 0.5s ease-in-out;
-  box-shadow: 5px 5px #000;
+  box-shadow: 5px 5px #fff;
 }
 
 button:active {
@@ -82,44 +87,73 @@ button:active {
 }
 
 .card {
-  background: #fff;
-  color: #000;
-  border: 2px solid #000;
+  background: #1a1a1a;
+  padding: 20px;
+  color: #fff;
+  border-radius: 30px;
 }
 
 .card-header {
   display: flex;
-  align-items: center;
-  padding: 10px 20px;
   justify-content: space-between;
-  border-bottom: 2px solid #000;
+  align-items: center;
 }
 
-.ul {
+ul {
   list-style-type: none;
+  height: 218px;
+  overflow-y: auto;
   margin: 10px 0;
-  padding: 5px 20px;
 }
 
-.ul li {
+ul::-webkit-scrollbar {
+  width: 8px;
+  scroll-behavior: smooth;
+}
+
+ul::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #e7e7e7;
+  border: 1px solid #cacaca;
+  margin: 0 20px;
+}
+
+ul::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  background-color: #3266cc;
+}
+
+ul li {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #272626;
   color: #fff;
   font-weight: 600;
+  text-align: center;
+  border-radius: 30px;
   margin: 5px 0;
-  padding: 10px;
+  padding: 5px;
 }
 
 ul li:nth-child(odd) {
   background: #3c3b3b;
 }
 
+ul li .index,
+ul li .scores {
+  background: #3266cc;
+  padding: 10px 15px;
+  border-radius: 30px;
+}
+
 .new-score {
-  background: #fff;
+  background: #1a1a1a;
   padding: 20px;
-  color: #000;
+  color: #fff;
+  border-radius: 30px;
 }
 
 .form input {
@@ -129,9 +163,9 @@ ul li:nth-child(odd) {
   padding: 20px 0;
   background: none;
   border: none;
-  color: #000;
+  color: #fff;
   font-weight: 600;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #fff;
 }
 
 .form input:focus {
@@ -144,7 +178,7 @@ ul li:nth-child(odd) {
 }
 
 .form input::placeholder {
-  color: #000;
+  color: #fff;
 }
 
 .form button {
